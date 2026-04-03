@@ -86,7 +86,7 @@ GET /api/parking/status
 
 ---
 
-### 5. Get Plate Numbers by Car Size (ดูเลขทะเบียน โดยเลือกขนาดของรถ)
+### 5. Get Plate Numbers by Car Size (ดูเลขทะเบียนรถลูกค้าที่กำลังจอด โดยเลือกขนาดของรถ)
 
 ```
 GET /api/car-customer/number-by-sizecar?size=small
