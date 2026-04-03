@@ -3,13 +3,13 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 @Injectable()
 export class HelperService {
   throwError(error) {
-    if (error?.response?.message) {
+    if (error?.message) {
       throw new HttpException(
         {
-          message: error.response?.message,
-          code: error.response?.statusCode || HttpStatus.BAD_REQUEST,
+          message: error.message,
+          code: error.statusCode || HttpStatus.BAD_REQUEST,
         },
-        error.response?.httpCode || HttpStatus.BAD_REQUEST,
+        error.httpCode || HttpStatus.BAD_REQUEST,
       );
     } else {
       throw new HttpException(

@@ -30,7 +30,7 @@ export class CarCustomerController {
   @Post('leaving')
   async leaving(@Body() dto: LeaveCarCustomerDto) {
     const response = await this.carCustomerService.leavingCar(dto);
-    return this.helperService.createResponse(response);
+    return this.helperService.getResponse(response);
   }
 
   @Get('number-by-sizecar')

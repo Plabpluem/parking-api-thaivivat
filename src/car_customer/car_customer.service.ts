@@ -14,6 +14,17 @@ export class CarCustomerService {
 
   async parkingCar(dto: ParkingCarCustomerDto) {
     try {
+      const existCarParking = await this.prisma.carCustomer.findFirst({
+        where:{
+          plate_number: dto.plate_number,
+          parking_lots: {isNot: null}
+        }
+      })
+
+      if(existCarParking){
+        throw new Error('มีรถคันนี้กำลังจอด ในที่จอดอยู่')
+      }
+
       const existCustomer = await this.prisma.carCustomer.findFirst({
         where: {
           plate_number: dto.plate_number,
@@ -56,7 +67,6 @@ export class CarCustomerService {
 
       return { ...responseCar, parking_lots: firstParkingAvailable };
     } catch (error) {
-      console.log(error);
       this.helperService.throwError(error);
     }
   }
@@ -66,6 +76,7 @@ export class CarCustomerService {
       const car = await this.prisma.carCustomer.findFirst({
         where: {
           plate_number: dto.plate_number,
+          parking_lots: {isNot: null}
         },
       });
 
