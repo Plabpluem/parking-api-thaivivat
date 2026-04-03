@@ -1,0 +1,43 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+enum CarSize {
+    small
+    medium
+    large
+
+    @@map("ParkingSize")
+}
+
+model ParkingLot {
+    id              Int          @id @default(autoincrement())
+    uuid            String       @unique @default(uuid())
+    number          Int
+    is_available    Boolean      @default(true)
+    id_car_customer Int?         @unique
+    car_customer    CarCustomer? @relation(fields: [id_car_customer], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+
+    @@map("ls_parking_lot")
+}
+
+model CarCustomer {
+    id           Int     @id @default(autoincrement())
+    uuid         String  @unique @default(uuid())
+    plate_number String
+    size         CarSize
+
+    created_at   DateTime    @default(now())
+    updated_at   DateTime    @default(now())
+    parking_lots ParkingLot?
+
+    @@map("ls_car_customer")
+}
