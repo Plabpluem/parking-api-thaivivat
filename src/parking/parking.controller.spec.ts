@@ -19,9 +19,9 @@ describe('ParkingController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ParkingController],
       providers: [
-        ParkingService,   // ใช้ตัวจริง
-        HelperService,    // ใช้ตัวจริง
-        { provide: PrismaService, useValue: mockPrisma }, // mock แค่ DB
+        ParkingService,
+        HelperService, 
+        { provide: PrismaService, useValue: mockPrisma },
       ],
     }).compile();
 
